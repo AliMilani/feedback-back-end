@@ -3,6 +3,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 const config = require("config");
 const mongoose = require("mongoose");
+const logger = require("./lib/logger");
 require("dotenv").config();
 
 class App {
@@ -22,6 +23,7 @@ class App {
         this.#app.use(cors());
         this.#app.use(express.json());
         this.#app.use(morgan("dev"));
+        throw new Error("This is a test error");
         // this.#app.use(require("./http/middlewares/apiLogger.middleware.js"))
         this.#app.use(express.urlencoded({ extended: true }));
     }
@@ -33,14 +35,14 @@ class App {
     async start() {
         await this.#connectDb();
         this.#server = this.#app.listen(this.#port, () => {
-            console.log(`Server is running on port ${this.#port}`);
+            logger.info(`Server is running on port ${this.#port}`);
         });
         return this.#server;
     }
 
     async #connectDb() {
         this.#dbConnection = await mongoose.connect(this.#mongoURI, {});
-        console.log("mongodb connected");
+        logger.info("mongodb connected");
     }
 
     // #handleDatabaseError() {
