@@ -1,8 +1,11 @@
-const router = require('express').Router()
-const notImplementedRouter = require('./notImpelemented.router')
-const v1Router = require('./v1')
+const router = require("express").Router();
+const notImplementedRouter = require("./notImpelemented.router");
+const healthCheckRouter = require("./healthCheck.router");
 
-router.use('/v1', v1Router) 
-router.use('/*', notImplementedRouter)
+const v1Router = require("./v1");
 
-module.exports = router
+router.use("/v1", v1Router);
+router.use(healthCheckRouter);
+router.use(notImplementedRouter);
+
+module.exports = router;
