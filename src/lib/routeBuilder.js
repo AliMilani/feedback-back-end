@@ -1,4 +1,4 @@
-const _ = require('lodash')
+const _ = require("lodash");
 const {
   adminAuthMiddleware,
   apiErrorsMiddleware: apiErrorsMiddleware,
@@ -8,23 +8,17 @@ const {
 } = require("../http/middlewares");
 const userTypes = require("../constants/userTypes.constant");
 const httpMethods = require("../constants/httpMethods.constant");
-const response =require('../utils/response.utils')
+const response = require("../utils/response.utils");
 
 class RouteBuilder {
-  constructor({
-    path,
-    method,
-    apiValidator,
-    controller,
-    userType,
-  }={}) {
-    if(path)this.setPath(path);
-    if(method) this.setMethod(method);
-    if(apiValidator) this.setApiValidator(apiValidator);
-    if(controller)this.setController(controller);
-    if(userType) this.setUserType(userType);
+  constructor({ path, method, apiValidator, controller, userType } = {}) {
+    if (path) this.setPath(path);
+    if (method) this.setMethod(method);
+    if (apiValidator) this.setApiValidator(apiValidator);
+    if (controller) this.setController(controller);
+    if (userType) this.setUserType(userType);
   }
-  #controller;
+
   #path;
   #method;
   #apiValidatorMiddleware;
@@ -100,7 +94,7 @@ class RouteBuilder {
           res.set(headerName, value);
         },
       },
-      response: ({ data, code }={}) => {
+      response: ({ data, code } = {}) => {
         return response(res, { code, data });
       },
     });
