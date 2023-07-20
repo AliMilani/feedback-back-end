@@ -12,6 +12,7 @@ const apiValidateMiddleware = (validator) => async (req, res, next) => {
   if (validationResult !== true)
     return response(res, {
       code: "INPUT_DATA_INVALID",
+      errors: validationResult
     });
 
   next();

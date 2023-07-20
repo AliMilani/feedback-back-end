@@ -1,10 +1,9 @@
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
-const config = require("config");
 const mongoose = require("mongoose");
 const logger = require("./lib/logger");
-require("dotenv").config();
+const apiErrorMiddleware = require('./http/middlewares/apiErrors.middleware')
 
 class App {
     #mongoURI;
@@ -17,19 +16,23 @@ class App {
         this.#mongoURI = mongoURI;
         this.#loadMiddlewares();
         this.#loadRoutes();
+        this.#loadErrorHandlers()
     }
 
     #loadMiddlewares() {
         this.#app.use(cors());
         this.#app.use(express.json());
         this.#app.use(morgan("dev"));
-        throw new Error("This is a test error");
         // this.#app.use(require("./http/middlewares/apiLogger.middleware.js"))
         this.#app.use(express.urlencoded({ extended: true }));
     }
 
     #loadRoutes() {
         this.#app.use("/api", require("./routes"));
+    }
+
+    #loadErrorHandlers() {
+        this.#app.use(apiErrorMiddleware);
     }
 
     async start() {

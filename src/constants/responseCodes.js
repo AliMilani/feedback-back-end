@@ -21,6 +21,14 @@ const responseCodes = Object.freeze({
     devMessage: "invalid id param",
     status: 400,
   },
+  ADMIN_NOT_FOUND: {
+    message: "مدیری با این مشخصات یافت نشد",
+    status: 404,
+  },
+  EMAIL_ALREADY_EXISTS: {
+    message: "ایمیل وارد شده قبلا ثبت شده است",
+    status: 409,
+  },
   PAYLOAD_TOO_LARGE: {
     message: "خطا ۴۱۳",
     devMessage: "payload too large",
