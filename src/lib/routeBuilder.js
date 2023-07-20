@@ -17,6 +17,9 @@ class RouteBuilder {
     if (apiValidator) this.setApiValidator(apiValidator);
     if (controller) this.setController(controller);
     if (userType) this.setUserType(userType);
+
+    // idea:
+    // set {basepath} on constructor and reuse builder for all routes
   }
 
   #path;
@@ -24,6 +27,7 @@ class RouteBuilder {
   #apiValidatorMiddleware;
   #useAdminAuthMiddleware;
   #useUserAuthMiddleware;
+  #idValidatorMiddleware;
   #responseHandler;
   #router = require("express").Router();
 
@@ -51,8 +55,9 @@ class RouteBuilder {
       throw new Error("method should be one of get, post, put, delete");
   }
 
-  useIdValodator() {
-    this.#router.use(idParamValidatorMiddleware);
+  useIdValadator() {
+    // this.#router.use(idParamValidatorMiddleware);
+    this.#idValidatorMiddleware = idParamValidatorMiddleware;
     return this;
   }
 
@@ -83,7 +88,9 @@ class RouteBuilder {
     return this;
   }
   #createResponseHandler = (controller) => (req, res) => {
+    // todo: when validator not set , remove handlerPrams.body / on build
     const handlerPrams = _.pick(req, ["ip", "query", "params", "body", "user"]);
+    // handlerPrams.id = handlerPrams?.params?.id;
     return controller({
       ...handlerPrams,
       header: {
@@ -97,6 +104,7 @@ class RouteBuilder {
       response: ({ data, code } = {}) => {
         return response(res, { code, data });
       },
+      //get body : throw error if not set
     });
   };
 
@@ -119,6 +127,7 @@ class RouteBuilder {
 
   #getAllMiddlewares() {
     return [
+      this.#idValidatorMiddleware,
       this.#apiValidatorMiddleware,
       this.#useUserAuthMiddleware,
       this.#useAdminAuthMiddleware,
