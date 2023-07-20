@@ -1,4 +1,5 @@
 const AdminModel = require("../models/admin.model");
+const { createHash } = require("../utils/password.utils");
 
 class AdminService {
   async create(admin) {
@@ -40,6 +41,7 @@ class AdminService {
     try {
       const targetAdmin = await this.findById(id)
       if (admin.email && admin.email === targetAdmin.email) delete admin.email;
+      if(admin.password) admin.password = await createHash(admin.password);
       const updatedAdmin = await AdminModel.findByIdAndUpdate(id, admin, {
         new: true,
       });
