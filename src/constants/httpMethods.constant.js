@@ -2,7 +2,8 @@ const httpMethods = Object.freeze({
     GET: 'get',
     POST: 'post',
     PUT: 'put',
-    DELETE: 'delete'
+    DELETE: 'delete',
+    ALL:'all'
 })
 
 module.exports =httpMethods

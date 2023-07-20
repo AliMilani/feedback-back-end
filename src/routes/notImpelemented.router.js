@@ -2,7 +2,7 @@ const RouteBuilder = require("../lib/routeBuilder");
 
 const notImplementedRouter = new RouteBuilder()
   .setPath("/*")
-  .setMethod("get")
+  .setMethod("all")
   .setController(function ({ response }) {
     response({ code: "ROUTE_NOT_IMPLEMENTED" });
   })
