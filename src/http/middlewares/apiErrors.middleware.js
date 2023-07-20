@@ -5,7 +5,6 @@ const { Error: MongooseError } = require("mongoose");
 const logger = require("../../lib/logger");
 
 const apiError = (err, req, res, next) => {
-  console.log("we are in apiError middleware");
   if (err.type === "entity.parse.failed")
     return response(res, {
       code: "JSON_SYNTAX_ERROR",
