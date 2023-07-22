@@ -3,5 +3,9 @@
 "log": {
     "consoleLevel": "info",
     "fileLevel": "info"
+},
+"auth": {
+    "accessTokenExpiresIn": "1h",
+    "refreshTokenExpiresIn": "7d"
 }
 }

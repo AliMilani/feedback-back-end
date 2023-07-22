@@ -12,6 +12,7 @@ class AdminController extends Controller {
       if (this.#isEmailDuplicateError(error)) {
         return this.#handleDuplicateEmail(response);
       }
+      throw error;
     }
   }
 

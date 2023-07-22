@@ -6,6 +6,7 @@ const notImplementedRouter = new RouteBuilder()
   .setController(function ({ response }) {
     response({ code: "ROUTE_NOT_IMPLEMENTED" });
   })
+  .setUserRole("user")
   .build();
 
 module.exports = notImplementedRouter;

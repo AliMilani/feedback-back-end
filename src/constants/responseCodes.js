@@ -21,8 +21,28 @@ const responseCodes = Object.freeze({
     devMessage: "invalid id param",
     status: 400,
   },
-  ADMIN_NOT_FOUND: {
-    message: "مدیری با این مشخصات یافت نشد",
+  ACCESS_TOKEN_REQUIRED: {
+    message: "عدم احراز هویت",
+    // devMessage: "access token required",
+    status: 401,
+  },
+  ACCESS_TOKEN_INVALID: {
+    message: "عدم احراز هویت",
+    // devMessage: "access token invalid",
+    status: 401,
+  },
+  ACCESS_TOKEN_EXPIRED: {
+    message: "عدم احراز هویت",
+    // devMessage: "access token expired",
+    status: 401,
+  },
+  LOGIN_FAILED: {
+    message: "ورود ناموفق",
+    devMessage: "username or password is incorrect",
+    status: 401,
+  },
+  USER_NOT_FOUND: {
+    message: "کاربری با این مشخصات یافت نشد",
     status: 404,
   },
   EMAIL_ALREADY_EXISTS: {

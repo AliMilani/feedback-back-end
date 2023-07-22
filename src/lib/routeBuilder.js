@@ -1,22 +1,20 @@
 const _ = require("lodash");
 const {
-  adminAuthMiddleware,
-  apiErrorsMiddleware: apiErrorsMiddleware,
   apiValidatorMiddleware,
   idParamValidatorMiddleware,
   userAuthMiddleware,
 } = require("../http/middlewares");
-const userTypes = require("../constants/userTypes.constant");
+const userRoles = require("../constants/userRoles.constant");
 const httpMethods = require("../constants/httpMethods.constant");
 const response = require("../utils/response.utils");
 
 class RouteBuilder {
-  constructor({ path, method, apiValidator, controller, userType } = {}) {
+  constructor({ path, method, apiValidator, controller, userRole } = {}) {
     if (path) this.setPath(path);
     if (method) this.setMethod(method);
     if (apiValidator) this.setApiValidator(apiValidator);
     if (controller) this.setController(controller);
-    if (userType) this.setUserType(userType);
+    if (userRole) this.setUserRole(userRole);
 
     // idea:
     // set {basepath} on constructor and reuse builder for all routes
@@ -25,11 +23,13 @@ class RouteBuilder {
   #path;
   #method;
   #apiValidatorMiddleware;
-  #useAdminAuthMiddleware;
-  #useUserAuthMiddleware;
+  #adminAuthMiddleware;
+  #userAuthMiddleware;
   #idValidatorMiddleware;
   #responseHandler;
   #router = require("express").Router();
+
+  static roles = userRoles;
 
   setPath(path) {
     this.#validatePath(path);
@@ -56,23 +56,25 @@ class RouteBuilder {
   }
 
   useIdValadator() {
-    // this.#router.use(idParamValidatorMiddleware);
     this.#idValidatorMiddleware = idParamValidatorMiddleware;
     return this;
   }
 
-  setUserType(userType) {
-    this.#validateUserType(userType);
-    if (userType === userTypes.ADMIN) this.#router.use(adminAuthMiddleware);
-    else if (userType === userTypes.USER) this.#router.use(userAuthMiddleware);
+  setUserRole(userRole) {
+    this.#validateUserRole(userRole);
+    if (userRole === userRoles.ADMIN) {
+      // this.#router.use(adminAuthMiddleware)
+      throw new Error("adminAuthMiddleware not implemented");
+    } else if (userRole === userRoles.USER)
+      this.#userAuthMiddleware = userAuthMiddleware;
     return this;
   }
 
-  #validateUserType(userType) {
-    const targetUserTypes = Object.values(userTypes);
-    if (!targetUserTypes.includes(userType))
+  #validateUserRole(userRole) {
+    const targetUserRoles = Object.values(userRoles);
+    if (!targetUserRoles.includes(userRole))
       throw new Error(
-        `userType should be one of userTypes, ${targetUserTypes.join(", ")}`
+        `userRole should be one of userRoles, ${targetUserRoles.join(", ")}`
       );
   }
 
@@ -81,14 +83,12 @@ class RouteBuilder {
     return this;
   }
 
-  // setAllowedRoles() { }
-
   setController(controller) {
     this.#responseHandler = this.#createResponseHandler(controller);
     return this;
   }
   #createResponseHandler = (controller) => (req, res) => {
-    // todo: when validator not set , remove handlerPrams.body / on build
+    // todo: when validator not set , remove handlerPrams.body / on build | or set getter and error if not set
     const handlerPrams = _.pick(req, ["ip", "query", "params", "body", "user"]);
     // handlerPrams.id = handlerPrams?.params?.id;
     return controller({
@@ -129,8 +129,8 @@ class RouteBuilder {
     return [
       this.#idValidatorMiddleware,
       this.#apiValidatorMiddleware,
-      this.#useUserAuthMiddleware,
-      this.#useAdminAuthMiddleware,
+      this.#userAuthMiddleware,
+      this.#adminAuthMiddleware,
     ].filter(Boolean);
   }
 }

@@ -1,3 +1,4 @@
 {
-    "mongodbURI": "MONGODB_URI"
+"mongodbURI": "MONGODB_URI",
+"userTokenSecret": "USER_TOKEN_SECRET"
 }

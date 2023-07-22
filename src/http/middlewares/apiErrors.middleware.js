@@ -23,12 +23,13 @@ const apiError = (err, req, res, next) => {
       errors:
         process.env.NODE_ENV === "development" ? { message, stack } : undefined,
     });
-  else
+  else {
     response(res, {
       code: "SERVER_ERROR",
       errors:
         process.env.NODE_ENV === "development" ? { message, stack } : undefined,
     });
+  }
   logger.error(`${message} \n\n ${stack || ""}`);
   process.exit(1);
 };

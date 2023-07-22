@@ -1,9 +1,10 @@
 const { createSchema, createModel } = require("../lib/db");
 const { createHash } = require("../utils/password.utils");
+const userRoles = require("../constants/userRoles.constant");
 
 const { EMAIL_PRECISE_PATTERN } = require("../helpers/validaton.helper");
 
-const adminSchema = createSchema({
+const userSchema = createSchema({
   fullName: {
     type: String,
     required: true,
@@ -18,7 +19,7 @@ const adminSchema = createSchema({
     lowercase: true,
     trim: true,
     required: true,
-    match: EMAIL_PRECISE_PATTERN,
+    match: EMAIL_PRECISE_PATTERN, // should be same in http\validators\user.validator.js email mode (quick or precise)
   },
   emailIsVerified: {
     type: Boolean,
@@ -31,18 +32,23 @@ const adminSchema = createSchema({
     maxlength: 250,
     select: false,
   },
+  role: {
+    type: String,
+    enum: Object.values(userRoles),
+    default: userRoles.USER,
+  },
 });
 
-adminSchema.pre("save", async function (next) {
-  const admin = this;
-  if (!admin.isModified("password")) return next();
+userSchema.pre("save", async function (next) {
+  const user = this;
+  if (!user.isModified("password")) return next();
   try {
-    const hashedPassword = await createHash(admin.password);
-    admin.password = hashedPassword;
+    const hashedPassword = await createHash(user.password);
+    user.password = hashedPassword;
     return next();
   } catch (error) {
     return next(error);
   }
 });
 
-module.exports = createModel("Admin", adminSchema);
+module.exports = createModel("User", userSchema);

@@ -12,11 +12,6 @@ const adminSchema = {
   },
   email: {
     type: "email",
-    min: 6,
-    max: 254,
-    normalize: true,
-    mode: "precise",
-    label: "ایمیل",
   },
   emailIsVerified: {
     type: "boolean",
