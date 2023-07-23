@@ -17,7 +17,7 @@ class UserToken {
   async create(userId) {
     const userService = new UserService();
 
-    const user = userService.findById(userId);
+    const user = await userService.findById(userId);
     if (!user) throw new Error("User not found");
     const accessToken = this.#generateAccessToken(user);
     const refreshToken = userTokenUitls.createRefreshToken();

@@ -7,6 +7,7 @@ const {
 const userRoles = require("../constants/userRoles.constant");
 const httpMethods = require("../constants/httpMethods.constant");
 const response = require("../utils/response.utils");
+const uplodaFileMiddleware = require("../http/middlewares/uploadFile.middleware");
 
 class RouteBuilder {
   constructor({ path, method, apiValidator, controller, userRole } = {}) {
@@ -26,6 +27,7 @@ class RouteBuilder {
   #adminAuthMiddleware;
   #userAuthMiddleware;
   #idValidatorMiddleware;
+  #fileUploadMiddleware;
   #responseHandler;
   #router = require("express").Router();
 
@@ -83,13 +85,25 @@ class RouteBuilder {
     return this;
   }
 
+  /**
+   * @param {{fieldName:string, subDir:string, multerOptions:import("multer").Options}} options
+   */
+  addFileUpload({ fieldName, subDir, multerOptions }={}) {
+    this.#fileUploadMiddleware = uplodaFileMiddleware({
+      fieldName,
+      subDir,
+      ...multerOptions,
+    });
+    return this;
+  }
+
   setController(controller) {
     this.#responseHandler = this.#createResponseHandler(controller);
     return this;
   }
   #createResponseHandler = (controller) => (req, res) => {
     // todo: when validator not set , remove handlerPrams.body / on build | or set getter and error if not set
-    const handlerPrams = _.pick(req, ["ip", "query", "params", "body", "user"]);
+    const handlerPrams = _.pick(req, ["ip", "query", "params", "body", "user", "file"]);
     // handlerPrams.id = handlerPrams?.params?.id;
     return controller({
       ...handlerPrams,
@@ -131,6 +145,7 @@ class RouteBuilder {
       this.#apiValidatorMiddleware,
       this.#userAuthMiddleware,
       this.#adminAuthMiddleware,
+      this.#fileUploadMiddleware,
     ].filter(Boolean);
   }
 }

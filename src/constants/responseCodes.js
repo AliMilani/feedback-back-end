@@ -41,8 +41,16 @@ const responseCodes = Object.freeze({
     devMessage: "username or password is incorrect",
     status: 401,
   },
+  USER_IS_NOT_OWNER: {
+    message: "شما صاحب این ایتم نیستید",
+    status: 403,
+  },
   USER_NOT_FOUND: {
     message: "کاربری با این مشخصات یافت نشد",
+    status: 404,
+  },
+  FEEDBACK_NOT_FOUND: {
+    message: "بازخوردی با این مشخصات یافت نشد",
     status: 404,
   },
   EMAIL_ALREADY_EXISTS: {
