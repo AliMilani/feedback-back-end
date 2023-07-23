@@ -1,0 +1,479 @@
+{
+	"info": {
+		"_postman_id": "7ac095aa-8625-40d5-aca0-cbc80d61b09c",
+		"name": "feedback-back-end",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19154378"
+	},
+	"item": [
+		{
+			"name": "admins",
+			"item": [
+				{
+					"name": "/",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fullName\":\"ali milani\",\r\n    \"email\":\"infos22s222@virusfa.ir\",\r\n    \"password\":\"1235678\",\r\n    \"confirmPassword\":\"1235678\" // optional\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{v1}}/admins",
+							"host": [
+								"{{v1}}"
+							],
+							"path": [
+								"admins"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/:id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\":\"amilani.2ir@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{v1}}/admins/64b9113a8b0684e67e8c8505",
+							"host": [
+								"{{v1}}"
+							],
+							"path": [
+								"admins",
+								"64b9113a8b0684e67e8c8505"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{v1}}/admins/64b9119c762da4ab070f710b",
+							"host": [
+								"{{v1}}"
+							],
+							"path": [
+								"admins",
+								"64b9119c762da4ab070f710b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/:id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{v1}}/admins/64b8fd781c13ffb67df4ea3c",
+							"host": [
+								"{{v1}}"
+							],
+							"path": [
+								"admins",
+								"64b8fd781c13ffb67df4ea3c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{v1}}/admins",
+							"host": [
+								"{{v1}}"
+							],
+							"path": [
+								"admins"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "feedbacks",
+			"item": [
+				{
+					"name": "/",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"title\",\r\n    \"details\":\"test\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{v1}}/feedbacks",
+							"host": [
+								"{{v1}}"
+							],
+							"path": [
+								"feedbacks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/:id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"amilani.2ir@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{v1}}/feedbacks/64bcea2386dcde5098ffb085",
+							"host": [
+								"{{v1}}"
+							],
+							"path": [
+								"feedbacks",
+								"64bcea2386dcde5098ffb085"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{v1}}/feedbacks/64bcdc408545b86c6dea85f3",
+							"host": [
+								"{{v1}}"
+							],
+							"path": [
+								"feedbacks",
+								"64bcdc408545b86c6dea85f3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/:id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{v1}}/feedbacks/64bcddedb4f0f3c8e260c150",
+							"host": [
+								"{{v1}}"
+							],
+							"path": [
+								"feedbacks",
+								"64bcddedb4f0f3c8e260c150"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{v1}}/feedbacks",
+							"host": [
+								"{{v1}}"
+							],
+							"path": [
+								"feedbacks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/:id/image",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "asss",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "details",
+									"value": "b",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/liara/Downloads/65303367.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{v1}}/feedbacks/64bcea2386dcde5098ffb085/image",
+							"host": [
+								"{{v1}}"
+							],
+							"path": [
+								"feedbacks",
+								"64bcea2386dcde5098ffb085",
+								"image"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/:id/vote",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{v1}}/feedbacks/64bcea2386dcde5098ffb085/vote",
+							"host": [
+								"{{v1}}"
+							],
+							"path": [
+								"feedbacks",
+								"64bcea2386dcde5098ffb085",
+								"vote"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/:id/vote",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{v1}}/feedbacks/64bcea2386dcde5098ffb085/vote",
+							"host": [
+								"{{v1}}"
+							],
+							"path": [
+								"feedbacks",
+								"64bcea2386dcde5098ffb085",
+								"vote"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{USER_ACCESS_TOKEN}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "/register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// let data = JSON.parse(responseBody);\r",
+									"var authorization = pm.response.headers.get('authorization')\r",
+									"var refreshToken = pm.response.headers.get('x-refresh-token')\r",
+									"if (!authorization) return\r",
+									"if (authorization) pm.environment.set(\"USER_ACCESS_TOKEN\", authorization?.split(' ')[1]);\r",
+									"if (refreshToken) pm.environment.set(\"USER_REFRESH_TOKEN\", refreshToken);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{USER_ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"info41@alimilani.ir\",\r\n    \"fullName\":\"ali milani\",\r\n    \"password\":\"1234567\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{v1}}/auth/register",
+							"host": [
+								"{{v1}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// let data = JSON.parse(responseBody);\r",
+									"var authorization = pm.response.headers.get('authorization')\r",
+									"var refreshToken = pm.response.headers.get('x-refresh-token')\r",
+									"if (!authorization) return\r",
+									"if (authorization) pm.environment.set(\"USER_ACCESS_TOKEN\", authorization?.split(' ')[1]);\r",
+									"if (refreshToken) pm.environment.set(\"USER_REFRESH_TOKEN\", refreshToken);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"info@alimilani.ir\",\r\n    \"password\":\"1234567\",\r\n    \"rememberMe\":true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{v1}}/auth/login",
+							"host": [
+								"{{v1}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "/health-check",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{USER_ACCESS_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "myfile",
+							"type": "file",
+							"src": "/C:/Users/liara/Downloads/65303367.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{api}}/health-check",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"health-check"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
