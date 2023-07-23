@@ -13,6 +13,7 @@ const createValidator = (schema) => {
   return v.compile({ ...schema, $$async: true, $$strict: true });
 };
 
+// todo: replace this with makeOptional
 const createOptionalValidator = (schema) => {
   const v = new Validator(options);
   const optionalSchema = Object.fromEntries(
@@ -30,4 +31,18 @@ const createOptionalValidator = (schema) => {
   return v.compile({ ...optionalSchema, $$async: true, $$strict: true });
 };
 
-module.exports = { createValidator, createOptionalValidator };
+const makeOptional = (schema) => {
+  return Object.fromEntries(
+    Object.entries(schema).map(([key, value]) => {
+      return [
+        key,
+        {
+          ...value,
+          optional: true,
+        },
+      ];
+    })
+  );
+};
+
+module.exports = { createValidator, createOptionalValidator, makeOptional };
