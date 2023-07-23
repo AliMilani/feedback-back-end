@@ -3,5 +3,5 @@ const config = require('config')
 
 module.exports = new TokenUitls(
   config.get("userTokenSecret"),
-  config.get("auth.accessTokenExpiresIn")
+  config.get("auth.refreshTokenExpiresIn")
 );
