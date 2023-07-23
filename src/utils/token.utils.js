@@ -23,10 +23,12 @@ class Token {
       if (error.name === "TokenExpiredError")
         throw new Error("access token expired");
       if (
-        (error.name === "JsonWebTokenError" &&
-          error.message === "invalid token") ||
+        error.message === "invalid token" ||
         error.message === "jwt malformed"
       )
+        throw new Error("access token invalid"); //todo: log warning
+
+      if (error.message === "invalid signature")
         throw new Error("access token invalid"); //todo: log warning
       throw error;
     }
