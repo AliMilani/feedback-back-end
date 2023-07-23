@@ -373,7 +373,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"info41@alimilani.ir\",\r\n    \"fullName\":\"ali milani\",\r\n    \"password\":\"1234567\"\r\n}",
+							"raw": "{\r\n    \"email\": \"info411@alimilani.ir\",\r\n    \"fullName\":\"ali milani\",\r\n    \"password\":\"1234567\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -388,6 +388,59 @@
 							"path": [
 								"auth",
 								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/refresh-token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// let data = JSON.parse(responseBody);\r",
+									"var authorization = pm.response.headers.get('authorization')\r",
+									"var refreshToken = pm.response.headers.get('x-refresh-token')\r",
+									"if (!authorization) return\r",
+									"if (authorization) pm.environment.set(\"USER_ACCESS_TOKEN\", authorization?.split(' ')[1]);\r",
+									"if (refreshToken) pm.environment.set(\"USER_REFRESH_TOKEN\", refreshToken);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{USER_ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"refreshToken\":\"{{USER_REFRESH_TOKEN}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{v1}}/auth/refresh-token",
+							"host": [
+								"{{v1}}"
+							],
+							"path": [
+								"auth",
+								"refresh-token"
 							]
 						}
 					},
