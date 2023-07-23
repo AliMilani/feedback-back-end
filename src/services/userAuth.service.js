@@ -44,6 +44,23 @@ class UserAuthService {
       throw error;
     }
   }
+
+  async refreshToken(refreshToken) {
+    try {
+      const tokens = await this.#userTokenService.refreshToken(refreshToken);
+      return tokens;
+    } catch (error) {
+      if (error.message === "refresh not found") {
+        throw new Error("Invalid refresh token"); // todo: warning log
+      }
+      if (
+        error.message === "refresh token revoked" ||
+        error.message === "refresh token expired"
+      )
+        throw new Error("Invalid refresh token");
+      throw error;
+    }
+  }
 }
 
 module.exports = UserAuthService;

@@ -39,6 +39,28 @@ class UserToken {
     };
     return userTokenUitls.createAccessToken(payload);
   }
+
+  async refreshToken(refreshToken) {
+    const userToken = await UserTokenModel.findOne({
+      refreshTokenHash: userTokenUitls.generateTokenHash(refreshToken),
+    });
+    if (!userToken) throw new Error("refresh not found");
+    if (userToken.revokedAt) throw new Error("refresh token revoked");
+    if (userToken.expiresAt.getTime() < Date.now())
+      throw new Error("refresh token expired");
+    const userService = new UserService();
+    const user = await userService.findById(userToken.user);
+    if (!user) throw new Error("User not found");
+    const newRefreshToken = userTokenUitls.createRefreshToken();
+    const newAccessToken = this.#generateAccessToken(user);
+    await UserTokenModel.findByIdAndUpdate(userToken.id, {
+      refreshTokenHash: userTokenUitls.generateTokenHash(newRefreshToken),
+    });
+    // console.log({ newAccessToken, newRefreshToken });
+    return { accessToken: newAccessToken, refreshToken: newRefreshToken };
+  }
+
+  async revokeToken(refreshToken) {}
 }
 
 module.exports = UserToken;

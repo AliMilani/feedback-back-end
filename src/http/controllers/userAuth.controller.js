@@ -4,7 +4,7 @@ const UserService = require("../../services/user.service");
 const UserTokenService = require("../../services/userToken.service");
 
 class UserAuthController extends Controller {
-  async register({ response, body,header }) {
+  async register({ response, body, header }) {
     const { email, fullName, password } = body;
     try {
       const userService = new UserService();
@@ -61,6 +61,26 @@ class UserAuthController extends Controller {
 
   #setRefreshToken(header, refreshToken) {
     header.set("x-refresh-token", refreshToken);
+  }
+
+  async refreshToken({ response, body, header }) {
+    try {
+      const { refreshToken } = body;
+      const userTokenService = new UserTokenService();
+      const { accessToken, refreshToken: newRefreshToken } =
+        await userTokenService.refreshToken(refreshToken);
+      console.log({ accessToken, newRefreshToken });
+      this.#setAccessToken(header, accessToken);
+      this.#setRefreshToken(header, newRefreshToken);
+      response({});
+    } catch (error) {
+      if (
+        error.message === "Invalid refresh token" ||
+        error.message === "refresh not found"
+      )
+        return response({ code: "REFRESH_TOKEN_EXPIRED" });
+      throw error;
+    }
   }
 }
 

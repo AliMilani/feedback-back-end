@@ -41,6 +41,11 @@ const responseCodes = Object.freeze({
     devMessage: "username or password is incorrect",
     status: 401,
   },
+  REFRESH_TOKEN_EXPIRED: {
+    message: "عدم احراز هویت",
+    devMessage: "refresh token expired or revoked",
+    status: 401,
+  },
   USER_IS_NOT_OWNER: {
     message: "شما صاحب این ایتم نیستید",
     status: 403,

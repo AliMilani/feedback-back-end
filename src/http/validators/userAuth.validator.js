@@ -36,7 +36,15 @@ const registerSchema = {
   },
 };
 
+const refreshTokenSchema = {
+  refreshToken: {
+    type: "string",
+    min: 1,
+  },
+};
+
 const loginValidator = createValidator(loginSchema);
 const registerValidator = createValidator(registerSchema);
+const refreshTokenValidator = createValidator(refreshTokenSchema);
 
-module.exports = { loginValidator, registerValidator };
+module.exports = { loginValidator, registerValidator, refreshTokenValidator };
