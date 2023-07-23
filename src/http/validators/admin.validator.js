@@ -23,13 +23,7 @@ const adminSchema = {
     min: 6,
     max: 250,
     label: "رمز عبور",
-  },
-  confirmPassword: {
-    type: "equal",
-    field: "password",
-    label: "تکرار رمز عبور",
-    optional: true,
-  },
+  }
 };
 
 const createAdminValidator = createValidator(adminSchema);
