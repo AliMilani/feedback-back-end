@@ -62,6 +62,10 @@ const responseCodes = Object.freeze({
     message: "ایمیل وارد شده قبلا ثبت شده است",
     status: 409,
   },
+  INVALID_RESET_CODE: {
+    message: "کد بازیابی رمز عبور نامعتبر است",
+    status: 410,
+  },
   PAYLOAD_TOO_LARGE: {
     message: "خطا ۴۱۳",
     devMessage: "payload too large",

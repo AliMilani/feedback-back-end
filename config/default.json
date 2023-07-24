@@ -7,5 +7,14 @@
 "auth": {
     "accessTokenExpiresIn": "1h",
     "refreshTokenExpiresIn": "7d"
+},
+"passwordResetExpiresIn": "1h",
+"mail": {
+    "from": "",
+    "host": "",
+    "port": "",
+    "tls": true,
+    "username": "",
+    "password": ""
 }
 }
