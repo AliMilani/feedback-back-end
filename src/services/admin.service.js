@@ -54,7 +54,7 @@ class AdminService {
 
   async getAll() {
     // todo: add pagination
-    const admins = await AdminModel.find().lean();
+    const admins = await AdminModel.find()
     return admins.map((admin) => admin.toObject());
   }
 }
