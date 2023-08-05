@@ -1,0 +1,276 @@
+openapi: 3.0.3
+info:
+  title: feedback-app api documentation
+  description: rest api
+  license:
+    name: MIT
+  version: 1.0.11
+servers:
+  - url: http://localhost:5000/api/v1
+    description: local servers
+security:
+  - bearerAuth: []
+tags:
+  - name: feedback
+    description: feedback api
+  - name: auth
+    description: auth api
+  - name: password reset
+    description: password reset api
+paths:
+  /feedbacks:
+    post:
+      tags:
+        - "feedback"
+      operationId: "feedback_put"
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+                - title
+                - details
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: title of the feedback
+                  example: "عنوان فیدبک"
+                details:
+                  type: string
+                  description: details of the feedback
+                  example: "جزئیات فیدبک"
+        required: true
+      responses:
+        "201":
+          description: feedback created
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/responseBody"
+                  - type: object
+                properties:
+                  data:
+                    type: object
+                    allOf:
+                      - $ref: "#/components/schemas/Feedback"
+                      - type: object
+                        properties:
+                          _id:
+                            type: string
+                            description: id of the feedback
+                            example: "5f9b3b3b3b3b3b3b3b3b3b3b"
+                          votes:
+                            type: array
+                            description: votes of the feedback
+                            items:
+                              $ref: "#/components/schemas/objectID"
+                      - $ref: "#/components/schemas/mongooseFields"
+        "422":
+          $ref: "#/components/responses/INPUT_DATA_INVALID"
+        "400":
+          description: bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/responseBody"
+        "413":
+          $ref: "#/components/responses/PAYLOAD_TOO_LARGE"
+        "500":
+          $ref: "#/components/responses/all-server-errors"
+components:
+  schemas:
+    validatorErrorTypes:
+      type: string
+      enum:
+        - required
+        - string
+        - stringEmpty
+        - stringMin
+        - stringMax
+        - stringLength
+        - stringPattern
+        - stringContains
+        - stringEnum
+        - stringNumeric
+        - stringAlpha
+        - stringAlphanum
+        - stringAlphadash
+        - stringHex
+        - stringSingleLine
+        - stringBase64
+        - number
+        - numberMin
+        - numberMax
+        - numberEqual
+        - numberNotEqual
+        - numberInteger
+        - numberPositive
+        - numberNegative
+        - array
+        - arrayEmpty
+        - arrayMin
+        - arrayMax
+        - arrayLength
+        - arrayContains
+        - arrayUnique
+        - arrayEnum
+        - tuple
+        - tupleEmpty
+        - tupleLength
+        - boolean
+        - function
+        - date
+        - dateMin
+        - dateMax
+        - forbidden
+        - ‍‍email
+        - emailEmpty
+        - emailMin
+        - emailMax
+        - url
+        - enumValue
+        - equalValue
+        - equalField
+        - object
+        - objectStrict
+        - objectMinProps
+        - objectMaxProps
+        - uuid
+        - uuidVersion
+        - mac
+        - luhn
+    responseBody:
+      type: object
+      properties:
+        code:
+          type: string
+          description: response code
+          # example: "OK"
+        message:
+          type: string
+          description: details of the feedback
+          # example: "جزئیات فیدبک"
+    mongooseFields:
+      type: object
+      properties:
+        createdAt:
+          $ref: "#/components/schemas/objectID"
+        updatedAt:
+          $ref: "#/components/schemas/objectID"
+
+    objectID:
+      type: string
+      description: object id
+      example: "5f9b3b3b3b3b3b3b3b3b3b3b"
+    Feedback:
+      required:
+        - title
+        - details
+      type: object
+      properties:
+        title:
+          type: string
+          description: title of the feedback\
+          example: "عنوان فیدبک"
+        details:
+          type: string
+          description: details of the feedback
+          example: "جزئیات فیدبک"
+        user:
+          $ref: "#/components/schemas/objectID"
+  responses:
+    "INPUT_DATA_INVALID":
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/responseBody"
+              - type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        type:
+                          $ref: "#/components/schemas/validatorErrorTypes"
+                        message:
+                          type: string
+                          description: error message
+                          example: "field اجباری است."
+                        field:
+                          type: string
+                          description: field or property path of the error
+                          # example: "details"
+                        label:
+                          type: string
+                          description: label of the field
+                          # example: "جزئیات فیدبک"
+      description: input data invalid
+    "all-bad-requests":
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/responseBody"
+          examples:
+            EMPTY_INPUT_BODY:
+              value:
+                code: "EMPTY_INPUT_BODY"
+                message: "دیتای ورودی نامعتبر است"
+            JSON_SYNTAX_ERROR:
+              value:
+                code: "JSON_SYNTAX_ERROR"
+                message: "دیتای ورودی نامعتبر است"
+      description: empty input body
+    "PAYLOAD_TOO_LARGE": #status code 413
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/responseBody"
+          example:
+            code: "PAYLOAD_TOO_LARGE"
+            message: "خطا ۴۱۳"
+      description: payload too large
+    "all-server-errors": #status code 500
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/responseBody"
+          examples:
+            "DATABASE_ERROR":
+              value:
+                code: "DATABASE_ERROR"
+                message: "خطای پایگاه داده"
+            "SERVER_ERROR":
+              value:
+                code: "SERVER_ERROR"
+                message: "خطای سرور"
+      description: database error
+
+  # examples:
+  #   "EMPTY_INPUT_BODY":
+  #     value:
+  #       code: "EMPTY_INPUT_BODY"
+  #       message: "دیتای ورودی نامعتبر است"
+  #   "PAYLOAD_TOO_LARGE":
+  #     value:
+  #       code: "PAYLOAD_TOO_LARGE"
+  #       message: "خطا ۴۱۳"
+  #   "DATABASE_ERROR":
+  #     value:
+  #       code: "DATABASE_ERROR"
+  #       message: "خطای پایگاه داده"
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token

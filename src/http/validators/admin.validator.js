@@ -1,6 +1,6 @@
 const {
   createValidator,
-  createOptionalValidator,
+  makeOptional,
 } = require("../../lib/validator");
 
 const adminSchema = {
@@ -23,10 +23,10 @@ const adminSchema = {
     min: 6,
     max: 250,
     label: "رمز عبور",
-  }
+  },
 };
 
 const createAdminValidator = createValidator(adminSchema);
-const updateAdminValidator = createOptionalValidator(adminSchema);
+const updateAdminValidator = createValidator(makeOptional(adminSchema));
 
 module.exports = { createAdminValidator, updateAdminValidator };
