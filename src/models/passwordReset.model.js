@@ -1,4 +1,4 @@
-const { createSchema, createModel } = require("../lib/db");
+const { createSchema, createModel } = require("../lib/db")
 
 const passwordResetSchema = createSchema({
   email: {
@@ -17,6 +17,6 @@ const passwordResetSchema = createSchema({
     type: String,
     required: true,
   }
-});
+})
 
-module.exports = createModel("PasswordReset", passwordResetSchema);
+module.exports = createModel("PasswordReset", passwordResetSchema)

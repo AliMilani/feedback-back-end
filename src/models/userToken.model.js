@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const { createSchema, createModel } = require("../lib/db");
+const mongoose = require("mongoose")
+const { createSchema, createModel } = require("../lib/db")
 
 const userTokenSchema = createSchema({
   user: {
@@ -18,6 +18,6 @@ const userTokenSchema = createSchema({
   revokedAt: {
     type: Date,
   },
-});
+})
 
-module.exports = createModel("UserToken", userTokenSchema);
+module.exports = createModel("UserToken", userTokenSchema)

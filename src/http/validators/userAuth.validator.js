@@ -1,4 +1,4 @@
-const { createValidator } = require("../../lib/validator");
+const { createValidator } = require("../../lib/validator")
 
 const loginSchema = {
   email: {
@@ -16,7 +16,7 @@ const loginSchema = {
     default: false,
     label: "مرا به خاطر بسپار",
   },
-};
+}
 
 const registerSchema = {
   fullName: {
@@ -34,17 +34,17 @@ const registerSchema = {
     max: 250,
     label: "رمز عبور",
   },
-};
+}
 
 const refreshTokenSchema = {
   refreshToken: {
     type: "string",
     min: 1,
   },
-};
+}
 
-const loginValidator = createValidator(loginSchema);
-const registerValidator = createValidator(registerSchema);
-const refreshTokenValidator = createValidator(refreshTokenSchema);
+const loginValidator = createValidator(loginSchema)
+const registerValidator = createValidator(registerSchema)
+const refreshTokenValidator = createValidator(refreshTokenSchema)
 
-module.exports = { loginValidator, registerValidator, refreshTokenValidator };
+module.exports = { loginValidator, registerValidator, refreshTokenValidator }

@@ -1,70 +1,70 @@
-const Controller = require("../../base/controller");
-const AdminService = require("../../services/admin.service");
+const Controller = require("../../base/controller")
+const AdminService = require("../../services/admin.service")
 
 class AdminController extends Controller {
-  #adminService = new AdminService();
+  #adminService = new AdminService()
 
-  async create({ response, body }) {
+  async create ({ response, body }) {
     try {
-      const admin = await this.#adminService.create(body);
-      response({ data: admin, code: "CREATED" });
+      const admin = await this.#adminService.create(body)
+      response({ data: admin, code: "CREATED" })
     } catch (error) {
       if (this.#isEmailDuplicateError(error)) {
-        return this.#handleDuplicateEmail(response);
+        return this.#handleDuplicateEmail(response)
       }
-      throw error;
+      throw error
     }
   }
 
   #isEmailDuplicateError = (error) => {
-    return error.message === "Email already exists";
-  };
+    return error.message === "Email already exists"
+  }
 
   #handleDuplicateEmail = (response) => {
-    return response({ code: "EMAIL_ALREADY_EXISTS" });
-  };
+    return response({ code: "EMAIL_ALREADY_EXISTS" })
+  }
 
-  async findById({ response, params }) {
+  async findById ({ response, params }) {
     try {
-      const admin = await this.#adminService.findById(params.id);
-      response({ data: admin });
+      const admin = await this.#adminService.findById(params.id)
+      response({ data: admin })
     } catch (error) {
-      if (this.#isNotFoundError(error)) return this.#handleNotFound(response);
-      throw error;
+      if (this.#isNotFoundError(error)) return this.#handleNotFound(response)
+      throw error
     }
   }
 
-  #isNotFoundError = (error) => error.message === "Admin not found";
+  #isNotFoundError = (error) => error.message === "Admin not found"
 
-  #handleNotFound = (response) => response({ code: "ADMIN_NOT_FOUND" });
+  #handleNotFound = (response) => response({ code: "ADMIN_NOT_FOUND" })
 
-  async update({ response, params, body }) {
+  async update ({ response, params, body }) {
     try {
-      const admin = await this.#adminService.update(params.id, body);
-      response({ data: admin });
+      const admin = await this.#adminService.update(params.id, body)
+      response({ data: admin })
     } catch (error) {
-      if (this.#isNotFoundError(error)) return this.#handleNotFound(response);
+      if (this.#isNotFoundError(error)) return this.#handleNotFound(response)
       if (this.#isEmailDuplicateError(error)) {
-        return this.#handleDuplicateEmail(response);
+        return this.#handleDuplicateEmail(response)
       }
-      throw error;
+      throw error
     }
   }
 
-  async delete({ response, params }) {
+  async delete ({ response, params }) {
     try {
-      const admin = await this.#adminService.delete(params.id);
-      response({ data: admin });
+      const admin = await this.#adminService.delete(params.id)
+      response({ data: admin })
     } catch (error) {
-      if (this.#isNotFoundError(error)) return this.#handleNotFound();
-      throw error;
+      if (this.#isNotFoundError(error)) return this.#handleNotFound()
+      throw error
     }
   }
 
-  async getAll({ response }) {
-    const admins = await this.#adminService.getAll();
-    response({ data: admins });
+  async getAll ({ response }) {
+    const admins = await this.#adminService.getAll()
+    response({ data: admins })
   }
 }
 
-module.exports = new AdminController();
+module.exports = new AdminController()

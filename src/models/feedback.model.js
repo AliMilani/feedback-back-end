@@ -1,5 +1,5 @@
-const { default: mongoose } = require("mongoose");
-const { createSchema, createModel } = require("../lib/db");
+const { default: mongoose } = require("mongoose")
+const { createSchema, createModel } = require("../lib/db")
 
 const feedbackSchema = createSchema({
   title: {
@@ -26,6 +26,6 @@ const feedbackSchema = createSchema({
       }
     ]
   }
-});
+})
 
-module.exports = createModel("Feedback", feedbackSchema);
+module.exports = createModel("Feedback", feedbackSchema)

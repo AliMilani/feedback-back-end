@@ -1,12 +1,12 @@
-const { createLogger, transports, format } = require("winston");
-const { combine, timestamp, printf, colorize } = format;
+const { createLogger, transports, format } = require("winston")
+const { combine, timestamp, printf, colorize } = format
 
 const myFormat = printf(({ level, message, timestamp, file, method }) => {
-  const methodPath = `${file || ""}${method ? `=>${method}(): ` : ""}`;
-  return `${timestamp}-  ${level}: ${methodPath}${message}`;
-});
+  const methodPath = `${file || ""}${method ? `=>${method}(): ` : ""}`
+  return `${timestamp}-  ${level}: ${methodPath}${message}`
+})
 
-const config = require("config");
+const config = require("config")
 const logger = createLogger({
   transports: [
     new transports.Console({
@@ -36,6 +36,6 @@ const logger = createLogger({
     }),
   ],
   format: combine(timestamp(), format.json()),
-});
+})
 
-module.exports = logger;
+module.exports = logger

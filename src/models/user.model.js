@@ -1,8 +1,8 @@
-const { createSchema, createModel } = require("../lib/db");
-const { createHash } = require("../utils/password.utils");
-const userRoles = require("../constants/userRoles.constant");
+const { createSchema, createModel } = require("../lib/db")
+const { createHash } = require("../utils/password.utils")
+const userRoles = require("../constants/userRoles.constant")
 
-const { EMAIL_PRECISE_PATTERN } = require("../helpers/validaton.helper");
+const { EMAIL_PRECISE_PATTERN } = require("../helpers/validaton.helper")
 
 const userSchema = createSchema({
   fullName: {
@@ -37,18 +37,18 @@ const userSchema = createSchema({
     enum: Object.values(userRoles),
     default: userRoles.USER,
   },
-});
+})
 
 userSchema.pre("save", async function (next) {
-  const user = this;
-  if (!user.isModified("password")) return next();
+  const user = this
+  if (!user.isModified("password")) return next()
   try {
-    const hashedPassword = await createHash(user.password);
-    user.password = hashedPassword;
-    return next();
+    const hashedPassword = await createHash(user.password)
+    user.password = hashedPassword
+    return next()
   } catch (error) {
-    return next(error);
+    return next(error)
   }
-});
+})
 
-module.exports = createModel("User", userSchema);
+module.exports = createModel("User", userSchema)

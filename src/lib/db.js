@@ -1,8 +1,8 @@
-const mongoose = require("mongoose");
+const mongoose = require("mongoose")
 
 const createModel = (modelName, schema) => {
-  return mongoose.model(modelName, schema);
-};
+  return mongoose.model(modelName, schema)
+}
 
 /**
  * @param {import("mongoose").SchemaDefinition} schemaDefinition
@@ -17,13 +17,13 @@ const createSchema = (schemaDefinition) => {
     toObject: {
       virtuals: true,
       transform: function (_, ret) {
-        delete ret.__v;
-        ret.id = ret._id;
-        delete ret._id;
+        delete ret.__v
+        ret.id = ret._id
+        delete ret._id
       },
     },
-  };
-  return new mongoose.Schema(schemaDefinition, schemaDefaultOptions);
-};
+  }
+  return new mongoose.Schema(schemaDefinition, schemaDefaultOptions)
+}
 
-module.exports = { createModel, createSchema };
+module.exports = { createModel, createSchema }

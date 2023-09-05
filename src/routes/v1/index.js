@@ -1,1 +1,1 @@
-module.exports= require('./v1.router') 
+module.exports = require('./v1.router')

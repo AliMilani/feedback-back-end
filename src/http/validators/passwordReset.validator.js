@@ -1,11 +1,11 @@
-const { createValidator } = require("../../lib/validator");
+const { createValidator } = require("../../lib/validator")
 
 const requestResetSchema = {
   email: {
     type: "email",
     label: "ایمیل",
   },
-};
+}
 
 const validateReuqest = {
   email: {
@@ -16,7 +16,7 @@ const validateReuqest = {
       type: "number",
       label: "کد",
   },
-};
+}
 
 const resetPasswordSchema = {
   email: {
@@ -31,7 +31,7 @@ const resetPasswordSchema = {
       type: "string",
       label: "رمز عبور",
   },
-};
-module.exports.requestReset = createValidator(requestResetSchema);
-module.exports.validateReuqest = createValidator(validateReuqest);
-module.exports.resetPassword = createValidator(resetPasswordSchema);
+}
+module.exports.requestReset = createValidator(requestResetSchema)
+module.exports.validateReuqest = createValidator(validateReuqest)
+module.exports.resetPassword = createValidator(resetPasswordSchema)

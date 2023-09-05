@@ -1,7 +1,7 @@
-const { createSchema, createModel } = require("../lib/db");
-const { createHash } = require("../utils/password.utils");
+const { createSchema, createModel } = require("../lib/db")
+const { createHash } = require("../utils/password.utils")
 
-const { EMAIL_PRECISE_PATTERN } = require("../helpers/validaton.helper");
+const { EMAIL_PRECISE_PATTERN } = require("../helpers/validaton.helper")
 
 const adminSchema = createSchema({
   fullName: {
@@ -31,18 +31,18 @@ const adminSchema = createSchema({
     maxlength: 250,
     select: false,
   },
-});
+})
 
 adminSchema.pre("save", async function (next) {
-  const admin = this;
-  if (!admin.isModified("password")) return next();
+  const admin = this
+  if (!admin.isModified("password")) return next()
   try {
-    const hashedPassword = await createHash(admin.password);
-    admin.password = hashedPassword;
-    return next();
+    const hashedPassword = await createHash(admin.password)
+    admin.password = hashedPassword
+    return next()
   } catch (error) {
-    return next(error);
+    return next(error)
   }
-});
+})
 
-module.exports = createModel("Admin", adminSchema);
+module.exports = createModel("Admin", adminSchema)

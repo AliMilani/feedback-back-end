@@ -1,7 +1,7 @@
-const config = require("config");
-const nodeMailer = require("nodemailer");
+const config = require("config")
+const nodeMailer = require("nodemailer")
 
-const mailconfig = config.get("mail");
+const mailconfig = config.get("mail")
 
 const transport = nodeMailer.createTransport({
   ...mailconfig,
@@ -9,7 +9,7 @@ const transport = nodeMailer.createTransport({
     user: config.get("mail.username"),
     pass: config.get("mail.password"),
   },
-});
+})
 
 module.exports = ({ to, subject, html }) => {
   return transport.sendMail({
@@ -17,5 +17,5 @@ module.exports = ({ to, subject, html }) => {
     to,
     subject,
     html,
-  });
-};
+  })
+}

@@ -1,5 +1,5 @@
-const logger = require("../../lib/logger");
-const winston = require("winston");
+const logger = require("../../lib/logger")
+const winston = require("winston")
 
 const apiLoggerlevels = {
   levels: {
@@ -12,11 +12,10 @@ const apiLoggerlevels = {
     fail: "yellow",
     success: "green",
   },
-};
+}
 
-winston.addColors(apiLoggerlevels.colors);
-const colorizer = winston.format.colorize();
-
+winston.addColors(apiLoggerlevels.colors)
+const colorizer = winston.format.colorize()
 
 const httpConsoleformat = winston.format.printf(
   ({
@@ -30,21 +29,19 @@ const httpConsoleformat = winston.format.printf(
     responseMessage,
     }) => {
         // colorizer
-    return `${timestamp} ${level}: ${method} ${path} ${statusCode} ${responseCode} ${responseMessage}`;
+    return `${timestamp} ${level}: ${method} ${path} ${statusCode} ${responseCode} ${responseMessage}`
   }
-);
+)
 
 const apiLogger = winston.createLogger({
     levels: apiLoggerlevels.levels,
-    
+
   transports: [
     new winston.transports.Console({
       level: "success",
     }),
   ],
-});
-
-
+})
 
 // const apiLogger = (req, res, next) => {
 

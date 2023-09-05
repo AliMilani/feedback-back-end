@@ -3,7 +3,7 @@ const httpMethods = Object.freeze({
     POST: 'post',
     PUT: 'put',
     DELETE: 'delete',
-    ALL:'all'
+    ALL: 'all'
 })
 
-module.exports =httpMethods
+module.exports = httpMethods

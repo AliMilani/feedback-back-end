@@ -1,51 +1,48 @@
-const jwt = require("jsonwebtoken");
-const crypto = require("crypto");
-const ms = require("ms");
+const jwt = require("jsonwebtoken")
+const crypto = require("crypto")
+const ms = require("ms")
 
 class Token {
-  #tokenSecret;
-  #tokenExpiresIn;
-  constructor(tokenSecret, tokenExpiresIn) {
-    this.#tokenSecret = tokenSecret;
-    this.#tokenExpiresIn = tokenExpiresIn;
+  #tokenSecret
+  #tokenExpiresIn
+  constructor (tokenSecret, tokenExpiresIn) {
+    this.#tokenSecret = tokenSecret
+    this.#tokenExpiresIn = tokenExpiresIn
   }
 
-  createAccessToken(payload) {
+  createAccessToken (payload) {
     return jwt.sign(payload, this.#tokenSecret, {
       expiresIn: this.#tokenExpiresIn,
-    });
+    })
   }
 
-  verifyAccessToken(token) {
+  verifyAccessToken (token) {
     try {
-      return jwt.verify(token, this.#tokenSecret);
+      return jwt.verify(token, this.#tokenSecret)
     } catch (error) {
-      if (error.name === "TokenExpiredError")
-        throw new Error("access token expired");
+      if (error.name === "TokenExpiredError") { throw new Error("access token expired") }
       if (
         error.message === "invalid token" ||
         error.message === "jwt malformed"
-      )
-        throw new Error("access token invalid"); //todo: log warning
+      ) { throw new Error("access token invalid") } // todo: log warning
 
-      if (error.message === "invalid signature")
-        throw new Error("access token invalid"); //todo: log warning
-      throw error;
+      if (error.message === "invalid signature") { throw new Error("access token invalid") } // todo: log warning
+      throw error
     }
   }
 
-  createRefreshToken() {
-    return crypto.randomBytes(64).toString("hex");
+  createRefreshToken () {
+    return crypto.randomBytes(64).toString("hex")
   }
 
-  generateTokenHash(token) {
-    return crypto.createHash("sha256").update(token).digest("hex");
+  generateTokenHash (token) {
+    return crypto.createHash("sha256").update(token).digest("hex")
   }
 
-  getExpireDate() {
-    const now = new Date();
-    return new Date(now.getTime() + ms(this.#tokenExpiresIn));
+  getExpireDate () {
+    const now = new Date()
+    return new Date(now.getTime() + ms(this.#tokenExpiresIn))
   }
 }
 
-module.exports = Token;
+module.exports = Token

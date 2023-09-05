@@ -1,4 +1,4 @@
-const { createValidator,makeOptional } = require("../../lib/validator");
+const { createValidator,makeOptional } = require("../../lib/validator")
 
 const feedbackSchema = {
     title: {
@@ -11,7 +11,7 @@ const feedbackSchema = {
     },
 }
 
-const createFeedbackValidator = createValidator(feedbackSchema);
-const updateFeedbackValidator = createValidator(makeOptional(feedbackSchema));
+const createFeedbackValidator = createValidator(feedbackSchema)
+const updateFeedbackValidator = createValidator(makeOptional(feedbackSchema))
 
-module.exports = { createFeedbackValidator, updateFeedbackValidator };
+module.exports = { createFeedbackValidator, updateFeedbackValidator }

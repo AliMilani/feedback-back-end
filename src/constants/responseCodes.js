@@ -88,6 +88,6 @@ const responseCodes = Object.freeze({
     devMessage: "route not implemented",
     status: 501,
   },
-});
+})
 
-module.exports = responseCodes;
+module.exports = responseCodes

@@ -33,4 +33,4 @@ module.exports = Object.freeze({
     date: "{field} باید یک تاریخ باشد",
     // custom validators messages
     idNotExist: "{field} در پایگاه داده موجود نیست",
-});
+})

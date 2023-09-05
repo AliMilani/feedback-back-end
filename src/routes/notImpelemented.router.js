@@ -1,11 +1,11 @@
-const RouteBuilder = require("../lib/routeBuilder");
+const RouteBuilder = require("../lib/routeBuilder")
 
 const notImplementedRouter = new RouteBuilder()
   .setPath("/*")
   .setMethod("all")
   .setController(function ({ response }) {
-    response({ code: "ROUTE_NOT_IMPLEMENTED" });
+    response({ code: "ROUTE_NOT_IMPLEMENTED" })
   })
-  .build();
+  .build()
 
-module.exports = notImplementedRouter;
+module.exports = notImplementedRouter
